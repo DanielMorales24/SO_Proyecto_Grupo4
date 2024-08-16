@@ -34,7 +34,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     public JDesktopPane P0;
     DefaultTableModel model;
-    String path = "jdbc:sqlite:C:/DB/SO_Proyecto.db";
+    String path = "jdbc:sqlite:C:\\Users\\user\\Desktop\\Proyecto Sistemas\\SO_Proyecto_Grupo4\\SO_Proyecto.db";
     Connection conectar;
 
     private void actualizarTabla() {
