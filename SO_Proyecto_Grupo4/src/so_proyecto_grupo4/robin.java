@@ -21,7 +21,7 @@ public class robin extends javax.swing.JFrame {
      * Creates new form robin
      */
      private Connection conectar;
-    private String path = "jdbc:sqlite:C:/SO_Proyecto_Grupo4_pr/SO_Proyecto.db";
+    private String path = "jdbc:sqlite:C:/proyecto/SO_Proyecto.db";
     private DefaultTableModel modelProcesos;
     private DefaultTableModel modelProcesada;
 
@@ -353,6 +353,10 @@ public class robin extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(robin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

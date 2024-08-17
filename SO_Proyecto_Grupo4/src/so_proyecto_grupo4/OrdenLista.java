@@ -28,7 +28,7 @@ public class OrdenLista extends javax.swing.JFrame {
     }
     public JDesktopPane P2;
     DefaultTableModel model;
-    String path = "jdbc:sqlite:C:/DB/SO_Proyecto.db";
+    String path = "jdbc:sqlite:C:/proyecto/SO_Proyecto.db";
     Connection conectar;
 
     /**
@@ -225,6 +225,13 @@ public class OrdenLista extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(OrdenLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

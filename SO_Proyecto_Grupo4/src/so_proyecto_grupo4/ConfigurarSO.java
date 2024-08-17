@@ -1,5 +1,8 @@
 package so_proyecto_grupo4;
 
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -11,6 +14,8 @@ package so_proyecto_grupo4;
  */
 public class ConfigurarSO extends javax.swing.JFrame {
 
+    JDesktopPane P3;
+   
     /**
      * Creates new form ConfigurarSO
      */
@@ -29,29 +34,89 @@ public class ConfigurarSO extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        memoriavirtual = new javax.swing.JTextField();
+        espacioendisco = new javax.swing.JTextField();
+        formaejecucion = new javax.swing.JComboBox<>();
+        FormaEjecucion = new javax.swing.JLabel();
+        Bguardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 22)); // NOI18N
         jLabel1.setText("Configurar Sistema Operativo");
 
+        jLabel2.setText("Memoria Virtual");
+
+        jLabel3.setText("Espacio en Disco");
+
+        formaejecucion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Por Tiempo", "Por Prioridad", "Round Robin", "Por sorteo" }));
+        formaejecucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formaejecucionActionPerformed(evt);
+            }
+        });
+
+        FormaEjecucion.setText("Forma Ejecucion");
+
+        Bguardar.setText("Guardar");
+        Bguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BguardarActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(memoriavirtual, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(espacioendisco, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(formaejecucion, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(FormaEjecucion, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(Bguardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(jLabel1)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addGap(104, 104, 104)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Bguardar)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
+                        .addComponent(FormaEjecucion, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGap(51, 51, 51)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(formaejecucion, javax.swing.GroupLayout.Alignment.LEADING, 0, 121, Short.MAX_VALUE)
+                        .addComponent(espacioendisco, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(memoriavirtual, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(memoriavirtual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(espacioendisco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(formaejecucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FormaEjecucion))
+                .addGap(42, 42, 42)
+                .addComponent(Bguardar)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -68,43 +133,59 @@ public class ConfigurarSO extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BguardarActionPerformed
+        // TODO add your handling code here:
+       String memoriaVirtual = memoriavirtual.getText();
+        String espacioDisco = espacioendisco.getText();
+        String metodoEjecucion = (String) formaejecucion.getSelectedItem();
+        
+        // Guardar configuración en ConfiguracionSO
+        ConfiguracionSO configuracion = ConfiguracionSO.getInstance();
+        configuracion.setMemoriaVirtual(memoriaVirtual);
+        configuracion.setEspacioDisco(espacioDisco);
+        configuracion.setMetodoEjecucion(metodoEjecucion);
+       
+        JOptionPane.showMessageDialog(this, "Configuración guardada:\n" +
+            "Memoria Virtual: " + memoriaVirtual + " MB\n" +
+            "Espacio en Disco: " + espacioDisco + " GB\n" +
+            "Método de Ejecución: " + metodoEjecucion);
+    }//GEN-LAST:event_BguardarActionPerformed
+
+    private void formaejecucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formaejecucionActionPerformed
+        // TODO add your handling code here:
+        String seleccion = (String) formaejecucion.getSelectedItem();
+    
+        if ("Por sorteo".equals(seleccion)) {
+            EmuladorSorteo emuladorSorteo = new EmuladorSorteo();
+            emuladorSorteo.setVisible(true);
+        } else if ("Por Prioridad".equals(seleccion)) {
+            EmuladorAdministradorTareas emuladorPrioridad = new EmuladorAdministradorTareas();
+            emuladorPrioridad.setVisible(true);
+        }
+    }//GEN-LAST:event_formaejecucionActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConfigurarSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConfigurarSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConfigurarSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConfigurarSO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+   public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new ConfigurarSO().setVisible(true);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConfigurarSO().setVisible(true);
-            }
-        });
-    }
+    });
+}
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bguardar;
+    private javax.swing.JLabel FormaEjecucion;
+    private javax.swing.JTextField espacioendisco;
+    private javax.swing.JComboBox<String> formaejecucion;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField memoriavirtual;
     // End of variables declaration//GEN-END:variables
 }
