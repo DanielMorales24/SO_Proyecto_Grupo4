@@ -17,16 +17,19 @@ public class multicola extends javax.swing.JFrame {
     /**
      * Creates new form multicola
      */
-  private Queue<Proceso> colaAltaPrioridad;
+ private Queue<Proceso> colaAltaPrioridad;
     private Queue<Proceso> colaMediaPrioridad;
     private Queue<Proceso> colaBajaPrioridad;
+    private Queue<Proceso> colaFinalizados; 
+    private int tiempoActual; 
 
-    // Constructor
     public multicola() {
         initComponents();
         colaAltaPrioridad = new LinkedList<>();
         colaMediaPrioridad = new LinkedList<>();
         colaBajaPrioridad = new LinkedList<>();
+        colaFinalizados = new LinkedList<>();
+        tiempoActual = 0; 
     }
 
 
@@ -249,137 +252,101 @@ public class multicola extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
    private void procesarCola(Queue<Proceso> cola) {
-        if (!cola.isEmpty()) {
-        Proceso proceso = cola.poll();
-        // Calcula el tiempo de finalización
-        proceso.setTiempoFinalizacion(proceso.getLlegada() + proceso.getTiempoCPU());
-
-        // Agregar el proceso a la tabla de procesos finalizados
-        DefaultTableModel modeloFinalizados = (DefaultTableModel) PFinalizados.getModel();
-        modeloFinalizados.addRow(new Object[]{
-            proceso.getNombre(),
-            proceso.getPrioridad(),
-            proceso.getLlegada(),
-            proceso.getTiempoCPU(),
-            proceso.getTiempoFinalizacion() // Incluye esto
-         });
-        }
+    if (!cola.isEmpty()) {
+        Proceso procesoActual = cola.peek();
+        procesoActual.setTiempoFinalizacion(procesoActual.getTiempoCPU() + tiempoActual); // Tiempo actual como referencia
+        cola.poll(); 
+        colaFinalizados.add(procesoActual);
     }
+}
 
- private void actualizarTablaEspera() {
-      DefaultTableModel modelo = (DefaultTableModel) PEspera.getModel();
-    modelo.setRowCount(0); // Limpia la tabla
-
-    for (Proceso proceso : colaAltaPrioridad) {
-        modelo.addRow(new Object[]{
-            proceso.getNombre(), 
-            proceso.getPrioridad(), 
-            proceso.getLlegada(), 
-            proceso.getTiempoCPU(), 
-            proceso.getQuantum() 
-        });
-    }
-
-    for (Proceso proceso : colaMediaPrioridad) {
-        modelo.addRow(new Object[]{
-            proceso.getNombre(), 
-            proceso.getPrioridad(), 
-            proceso.getLlegada(), 
-            proceso.getTiempoCPU(), 
-            proceso.getQuantum() 
-        });
-    }
-
-    for (Proceso proceso : colaBajaPrioridad) {
-        modelo.addRow(new Object[]{
-            proceso.getNombre(), 
-            proceso.getPrioridad(), 
-            proceso.getLlegada(), 
-            proceso.getTiempoCPU(), 
-            proceso.getQuantum() 
-        });
-    }
-    }
-
-        private void actualizarTablaFinalizados() {
-              DefaultTableModel modelo = (DefaultTableModel) PFinalizados.getModel();
+  private void actualizarTablaEspera() {
+        DefaultTableModel modelo = (DefaultTableModel) PEspera.getModel();
         modelo.setRowCount(0); 
-
         for (Proceso proceso : colaAltaPrioridad) {
-            if (proceso.getTiempoFinalizacion() != 0) {
-                modelo.addRow(new Object[]{
-                    proceso.getNombre(), proceso.getPrioridad(), proceso.getLlegada(),
-                    proceso.getTiempoFinalizacion(), proceso.getTiempoCPU()
-                });
-            }
+            modelo.addRow(new Object[]{
+                proceso.getNombre(),
+                proceso.getPrioridad(),
+                proceso.getLlegada(),
+                proceso.getTiempoCPU(),
+                proceso.getQuantum()
+            });
         }
 
         for (Proceso proceso : colaMediaPrioridad) {
-            if (proceso.getTiempoFinalizacion() != 0) {
-                modelo.addRow(new Object[]{
-                    proceso.getNombre(), proceso.getPrioridad(), proceso.getLlegada(),
-                    proceso.getTiempoFinalizacion(), proceso.getTiempoCPU()
-                });
-            }
+            modelo.addRow(new Object[]{
+                proceso.getNombre(),
+                proceso.getPrioridad(),
+                proceso.getLlegada(),
+                proceso.getTiempoCPU(),
+                proceso.getQuantum()
+            });
         }
 
         for (Proceso proceso : colaBajaPrioridad) {
-            if (proceso.getTiempoFinalizacion() != 0) {
-                modelo.addRow(new Object[]{
-                    proceso.getNombre(), proceso.getPrioridad(), proceso.getLlegada(),
-                    proceso.getTiempoFinalizacion(), proceso.getTiempoCPU()
+            modelo.addRow(new Object[]{
+                proceso.getNombre(),
+                proceso.getPrioridad(),
+                proceso.getLlegada(),
+                proceso.getTiempoCPU(),
+                proceso.getQuantum()
             });
         }
+    }
+   
+ private void actualizarTablaFinalizados() {
+        DefaultTableModel modelo = (DefaultTableModel) PFinalizados.getModel();
+        modelo.setRowCount(0); 
+        for (Proceso proceso : colaFinalizados) {
+            modelo.addRow(new Object[]{
+                proceso.getNombre(),
+                proceso.getPrioridad(),
+                proceso.getLlegada(),
+                proceso.getTiempoCPU(),
+                proceso.getTiempoFinalizacion()
+            });
         }
     }
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-         String nombre = proceso.getText();
-            int prioridad = (int) this.prioridad.getValue();
-            int llegada = (int) this.llegada.getValue();
-            int tiempoCPU = (int) this.tiempo.getValue();
-            int quantum = (int) this.quantum.getValue();
+  String nombre = proceso.getText();
+        int prioridad = (int) this.prioridad.getValue();
+        int llegada = (int) this.llegada.getValue();
+        int tiempoCPU = (int) this.tiempo.getValue();
+        int quantum = (int) this.quantum.getValue();
 
-            Proceso nuevoProceso = new Proceso(nombre, prioridad, llegada, tiempoCPU, quantum);
+        Proceso nuevoProceso = new Proceso(nombre, prioridad, llegada, tiempoCPU, quantum);
 
-            if (prioridad == 1) {
-                colaAltaPrioridad.add(nuevoProceso);
-            } else if (prioridad == 2) {
-                colaMediaPrioridad.add(nuevoProceso);
-            } else {
-                colaBajaPrioridad.add(nuevoProceso);
-            }
+        if (prioridad == 1) {
+            colaAltaPrioridad.add(nuevoProceso);
+        } else if (prioridad == 2) {
+            colaMediaPrioridad.add(nuevoProceso);
+        } else {
+            colaBajaPrioridad.add(nuevoProceso);
+        }
 
-            actualizarTablaEspera();
+        actualizarTablaEspera();
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
         // TODO add your handling code here:
-       procesarCola(colaAltaPrioridad);
-    
-    // Procesar los procesos de media prioridad
-    procesarCola(colaMediaPrioridad);
-    
-    // Procesar los procesos de baja prioridad
-    procesarCola(colaBajaPrioridad);
-    
-    // Actualizar la tabla de procesos en espera y la de finalizados
-    actualizarTablaEspera();
-    actualizarTablaFinalizados();
+    procesarCola(colaAltaPrioridad);
+        procesarCola(colaMediaPrioridad);
+        procesarCola(colaBajaPrioridad);
+
+        actualizarTablaEspera();
+        actualizarTablaFinalizados();
     }//GEN-LAST:event_btnProcesarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         PantallaPrincipal pantallaPrincipal = new PantallaPrincipal();
     
-    // Ocultar la pantalla actual
     this.setVisible(false);
     
-    // Mostrar la pantalla principal
     pantallaPrincipal.setVisible(true);
     
-    // Opcional: Cerrar la pantalla actual cuando se cierre la pantalla principal
     pantallaPrincipal.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -427,52 +394,50 @@ public class multicola extends javax.swing.JFrame {
     }
     
     public class Proceso {
-    private String nombre;
-    private int prioridad;
-    private int llegada;
-    private int tiempoCPU;
-    private int quantum;
-    private int tiempoFinalizacion;
+        private String nombre;
+        private int prioridad;
+        private int llegada;
+        private int tiempoCPU;
+        private int quantum;
+        private int tiempoFinalizacion;
 
-    // Constructor
-    public Proceso(String nombre, int prioridad, int llegada, int tiempoCPU, int quantum) {
-        this.nombre = nombre;
-        this.prioridad = prioridad;
-        this.llegada = llegada;
-        this.tiempoCPU = tiempoCPU;
-        this.quantum = quantum;
+        public Proceso(String nombre, int prioridad, int llegada, int tiempoCPU, int quantum) {
+            this.nombre = nombre;
+            this.prioridad = prioridad;
+            this.llegada = llegada;
+            this.tiempoCPU = tiempoCPU;
+            this.quantum = quantum;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public int getPrioridad() {
+            return prioridad;
+        }
+
+        public int getLlegada() {
+            return llegada;
+        }
+
+        public int getTiempoCPU() {
+            return tiempoCPU;
+        }
+
+        public int getQuantum() {
+            return quantum;
+        }
+
+        public int getTiempoFinalizacion() {
+            return tiempoFinalizacion;
+        }
+
+        public void setTiempoFinalizacion(int tiempoFinalizacion) {
+            this.tiempoFinalizacion = tiempoFinalizacion;
+        }
     }
 
-    // Métodos Getter y Setter
-    public String getNombre() {
-        return nombre;
-    }
-
-    public int getPrioridad() {
-        return prioridad;
-    }
-
-    public int getLlegada() {
-        return llegada;
-    }
-
-    public int getTiempoCPU() {
-        return tiempoCPU;
-    }
-
-    public int getQuantum() {
-        return quantum;
-    }
-
-    public int getTiempoFinalizacion() {
-        return tiempoFinalizacion;
-    }
-
-    public void setTiempoFinalizacion(int tiempoFinalizacion) {
-        this.tiempoFinalizacion = tiempoFinalizacion;
-    }
-}
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable PEspera;
     private javax.swing.JTable PFinalizados;
